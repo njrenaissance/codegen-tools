@@ -1,0 +1,5 @@
+{
+  "name": "clean-code",
+  "description": "Clean Code standards for Python and TypeScript. Bundles the routing table, a review subagent, and a review skill that check changes against the judgment-tier rules a linter cannot enforce.",
+  "version": "0.1.0"
+}
