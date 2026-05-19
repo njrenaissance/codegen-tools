@@ -177,7 +177,7 @@ Read and apply the following on every task:
 - **CLAUDE.md (main rules):** `~/engineering-standards/CLAUDE.md`
 - **Clean Code:** `~/engineering-standards/CLEAN-CODE.md`
 - **Clean Architecture:** `~/engineering-standards/CLEAN-ARCHITECTURE.md`
-- **Pattern index:** `~/engineering-standards/patterns/README.md`
+- **Pattern index:** `~/engineering-standards/patterns/PATTERNS.md`
 
 Available skills (install with symlinks — see `~/engineering-standards/skills/README.md`):
 - `/clean-review` — check a file against all standards

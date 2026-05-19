@@ -1,0 +1,24 @@
+{
+  "name": "codegen-tools",
+  "owner": {
+    "name": "njrenaissance",
+    "email": "jonphilnj@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "clean-code",
+      "source": "./clean-code",
+      "description": "Clean Code standards for Python and TypeScript: a review subagent and skill for the judgment-tier rules, and a PostToolUse lint hook for the deterministic ones."
+    },
+    {
+      "name": "patterns",
+      "source": "./patterns",
+      "description": "GoF design patterns reference for Python and TypeScript, with an /apply-pattern skill that maps a named pattern onto existing code."
+    },
+    {
+      "name": "git-workflow",
+      "source": "./git-workflow",
+      "description": "Git workflow helpers: a /refresh command to sync back to an up-to-date main after branch work, and a commit skill for Conventional Commits messages."
+    }
+  ]
+}

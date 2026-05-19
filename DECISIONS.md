@@ -2,9 +2,6 @@
 
 Architecture Decision Records (ADRs) for the Clean Code standards. Newest last.
 
-<!-- markdownlint-disable MD024 MD036 -->
-<!-- ADRs intentionally repeat Context / Decision / Consequences headings. -->
-
 ---
 
 ## ADR-001 — Clean Code enforcement architecture
@@ -53,7 +50,7 @@ the current scale (solo, two languages, mixed-language repos).
 
 ### Consequences
 
-**Positive**
+#### Positive
 
 - Each rule is enforced by the cheapest mechanism that can handle it; the
   linter and the review subagent never duplicate work.
@@ -61,7 +58,7 @@ the current scale (solo, two languages, mixed-language repos).
   with zero duplication.
 - The plugin keeps skill, agent, and standards together and installable.
 
-**Negative / trade-offs**
+#### Negative / trade-offs
 
 - The table and linter configs are hand-maintained — they can drift. Acceptable
   at solo, two-language scale.
@@ -69,49 +66,3 @@ the current scale (solo, two languages, mixed-language repos).
   lazy-loading. Acceptable because it runs in a throwaway subagent context.
 - A third language, or moving to a team / CI, may justify revisiting the
   no-generator decision.
-
----
-
-## ADR-002 — Clean Architecture deferred, not in this repo
-
-**Status:** Accepted   **Date:** 2026-05-18
-
-### Context
-
-Clean Architecture rules (the Dependency Rule, SOLID, ADP) were considered for
-inclusion alongside Clean Code. Analysis showed their *review* value does not
-stand on its own:
-
-- The Dependency Rule and ADP are structural — best enforced by import-graph
-  linters (`import-linter`, `madge --circular`), not an LLM reviewer.
-- SOLID's judgment rules overlap with, or extend, the Clean Code reviewer
-  (SRP / OCP / DIP / polymorphism already overlap; LSP / ISP would just be more
-  rows in its table).
-
-What remains distinctive about Clean Architecture is **design-time** guidance —
-laying out layers and ports when scaffolding an app. That is generative, not
-review. The standard is already maintained outside this repo.
-
-### Decision
-
-Do not include Clean Architecture in this repo. Keeping an unused
-`CLEAN-ARCHITECTURE.md` here would be dead code (Rule 15).
-
-Revisit only when there is an actual need to **design or scaffold an app** — at
-which point Clean Architecture enters as a generative `design-app` skill, not a
-review plugin. If structural enforcement is wanted then, it goes to import-graph
-linters; SOLID judgment rules go to the Clean Code reviewer's table.
-
-This rejects the earlier idea of a sibling `clean-architecture` review plugin.
-
-### Consequences
-
-**Positive**
-
-- The repo stays focused on Clean Code; no unused standard to maintain.
-
-**Negative / trade-offs**
-
-- Architecture decay (layer violations, import cycles) is not enforced by this
-  repo until the decision is revisited; it relies on the externally maintained
-  copy.

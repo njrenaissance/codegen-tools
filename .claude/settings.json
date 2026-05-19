@@ -3,12 +3,18 @@
     "allow": [
       "Read(Bash)",
       "Read(PowerShell)",
-      "Read(GitHub)"
+      "Read(GitHub)",
+      "Bash(ls .claude 2>/dev/null; mkdir -p .claude/commands)",
+      "Bash(rm -rf .claude/commands skills/commit && echo \"removed originals\" && find git-workflow -type f)"
     ],
     "ask": [
       "Bash(git commit *)",
       "Bash(git push *)",
       "Bash(git merge *)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\jon_m\\github\\codegen-tools\\.claude",
+      "C:\\Users\\jon_m\\github\\codegen-tools\\.claude\\commands"
     ]
   }
 }

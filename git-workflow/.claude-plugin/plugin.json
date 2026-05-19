@@ -1,0 +1,5 @@
+{
+  "name": "git-workflow",
+  "description": "Git workflow helpers. Bundles the /refresh command to sync back to an up-to-date main after branch work, and a commit skill that writes Conventional Commits messages.",
+  "version": "0.1.0"
+}

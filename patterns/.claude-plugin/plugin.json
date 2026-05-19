@@ -1,0 +1,5 @@
+{
+  "name": "patterns",
+  "description": "GoF design patterns reference for Python and TypeScript. Bundles all 23 pattern files and an /apply-pattern skill that maps a named pattern onto existing code.",
+  "version": "0.1.0"
+}

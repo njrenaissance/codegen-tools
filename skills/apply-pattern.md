@@ -53,7 +53,7 @@ Apply a named GoF design pattern to the current file or selection.
    If the full refactor would touch files not currently open, add a `TODO [PATTERN:name]` comment
    at each touch point listing what needs to change, so work can continue incrementally.
 
-7. **Summarise**
+7. **Summarize**
    After producing the refactored code, output a one-paragraph summary:
    - Which participant maps to what
    - What the concrete benefit is (testability, extensibility, SRP, etc.)

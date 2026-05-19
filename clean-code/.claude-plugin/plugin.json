@@ -1,5 +1,6 @@
 {
   "name": "clean-code",
-  "description": "Clean Code standards for Python and TypeScript. Bundles the routing table, a review subagent, and a review skill that check changes against the judgment-tier rules a linter cannot enforce.",
-  "version": "0.1.0"
+  "description": "Clean Code standards for Python and TypeScript. Bundles a review subagent and skill for the judgment-tier rules, and a PostToolUse lint hook for the deterministic ones.",
+  "version": "0.1.0",
+  "hooks": "./hooks/hooks.json"
 }
