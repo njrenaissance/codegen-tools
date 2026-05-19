@@ -42,23 +42,20 @@ it as normal Markdown, not wrapped in a code fence):
 ```text
 ## Clean Code Review — <scope>
 
-### 🔴 High
-- `path/file.py:42` — **<rule name>** — <what is wrong, one sentence>.
+- `path/file.py:42` — **<rule name>** — <what is wrong, and the concrete
+  consequence for correctness or maintainability>.
   → Fix: <the fix>.
-
-### 🟡 Medium
-- `path/file.ts:88` — **<rule name>** — <what is wrong>.
-  → Fix: <the fix>.
-
-### 🟢 Low
-- `path/file.py:5` — **<rule name>** — <what is wrong>.
+- `path/file.ts:88` — **<rule name>** — <what is wrong, and the concrete
+  consequence>.
   → Fix: <the fix>.
 ```
 
 Rules for the report:
 
-- Omit any severity heading that has no findings.
+- One flat list of findings — no severity grouping or ranking.
 - Reference every finding by the **name** of the rule it violates.
+- State the concrete consequence, not just the label — say why the violation
+  matters, so the reader can triage.
 - For a file with no violations: `✅ <file> — no Clean Code violations.`
 - Do not rewrite code unless explicitly asked — report only; do not pad.
 - End with one line: `Reviewed <N> file(s) against the Clean Code standard.`
