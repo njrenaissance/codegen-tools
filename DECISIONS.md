@@ -6,7 +6,7 @@ Architecture Decision Records (ADRs) for the Clean Code standards. Newest last.
 
 ## ADR-001 — Clean Code enforcement architecture
 
-**Status:** Accepted   **Date:** 2026-05-18
+**Status:** Superseded by ADR-002   **Date:** 2026-05-18
 
 ### Context
 
@@ -66,3 +66,72 @@ the current scale (solo, two languages, mixed-language repos).
   lazy-loading. Acceptable because it runs in a throwaway subagent context.
 - A third language, or moving to a team / CI, may justify revisiting the
   no-generator decision.
+
+---
+
+## ADR-002 — Drop the bundled standard; rely on the model's training
+
+**Status:** Accepted   **Date:** 2026-05-18
+
+### Context
+
+ADR-001 made `CLEAN-CODE.md` — a hand-maintained restatement of ~35 Clean Code
+rules plus BAD/GOOD examples — the source of truth. Testing the reviewer
+against files with known violations showed Claude identifies and fixes those
+violations correctly *without* the bundled file: *Clean Code* (Martin, 2008) is
+already in the model's training corpus. The bundled standard was re-encoding
+knowledge the model already has.
+
+What the file added over the model's own knowledge was not the rules but their
+*calibration* — thresholds, which rules to enforce, the routing of each rule to
+a mechanism. The thresholds, though, already live in each project's own
+`pyproject.toml` (the lint hook reads that, not `CLEAN-CODE.md`). So the file's
+unique contribution was small relative to its size (~6k tokens read every run)
+and its maintenance cost.
+
+### Decision
+
+1. **Delete the bundled standard.** `CLEAN-CODE.md` and `references/py.md` /
+   `ts.md` are removed. The standard is the book itself, cited by name in the
+   agent and skill: *Clean Code* (Robert C. Martin, Prentice Hall, 2008).
+
+2. **Self-contained reviewer.** The reviewer agent carries its own short scope
+   (the Clean Code rule areas) inline. It no longer reads an external standards
+   file or a routing table.
+
+3. **Review the full standard, every language.** The reviewer is no longer
+   restricted to the judgment tier or to Python/TypeScript. It reviews any
+   source file against the whole standard and reports every violation —
+   accepting overlap with the lint hook rather than risking gaps.
+
+4. **No severity tiers.** Findings are a flat list; each states its concrete
+   consequence. Clean Code has no canonical High/Medium/Low ranking, so invented
+   per-run tiers were inconsistent and added false precision.
+
+5. **Keep the lint hook.** The `PostToolUse` hook (`lint_on_edit.py`) stays — it
+   is the one piece that does something a prompt cannot. Thresholds remain owned
+   by each project's `pyproject.toml`.
+
+### Consequences
+
+#### Positive
+
+- No restatement of a copyrighted book to maintain, and nothing to drift out of
+  sync with the book.
+- The reviewer is smaller, portable, and language-agnostic with no per-language
+  table lookup.
+- The plugin's value is honestly scoped: a lint hook and a short reviewer
+  prompt, not re-supplied knowledge.
+
+#### Negative / trade-offs
+
+- The team's calibration — which rules matter, where the line sits — is no
+  longer written down; it lives only in the agent's brief scope list and the
+  project lint configs. Less explicit than the old table.
+- The reviewer may flag issues the lint hook also catches. Redundancy accepted
+  over the risk of gaps.
+- The review reflects the model's interpretation of *Clean Code*, which can
+  shift between model versions. Accepted at current scale.
+
+This decision rests on a single round of testing; a regression in review
+quality would justify revisiting it.
